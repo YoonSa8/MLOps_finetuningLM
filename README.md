@@ -20,85 +20,138 @@ Requirements:
 
 ● Config
     ○ Target domain topic as prompt in NL.
+    
     ○ Environment variables
 
 ● Data collection
     ○ Web scraping
+    
     ○ PDF extraction with layout
+    
     ○ Metadata extraction and source attribution
 
 ● Data processing
     ○ Cleaning, deduplication, and quality filtering
+    
     ○ Data normalization and tokenization
+    
     ○ Data storage
 
 ● Training dataset
+    
     ○ LLM API integration for dataset augmentation
+    
     ○ Question-answer pair generation
+    
     ○ Training dataset formatting and preparation
-    ● Fine-tuning
+
+● Fine-tuning
+    
     ○ Integration with models ≤7B parameters
+    
     ○ Memory-efficient training with techniques like LoRA or QLoRA
+    
     ○ Experiment tracking
 
 ● Evals and Benchmarking
+    
     ○ Domain-specific benchmark dataset creation 
+    
     ○ Asked both base model and finetuned model to see what gives better answer 
+    
     ○ Automated evaluation metrics (ROUGE, BLEU)
+        
         i. Performance comparison with baseline model
+        
         ii. Inference latency and throughput
 
 ● Deployment and Serving
+    
     ○ Model registration and versioning
+    
     ○ Lightweight inference and deployment
+    
     ○ API endpoint with authentication
+    
     ○ Endpoint monitoring
 
 ● Orchestration
+
     ○ Workflow automation using Prefect
+    
     ○ Manual and scheduled triggers
 
 
 Working steps:
+
 Phase 0: configration and structure the Environment 
+
          install requirments 
+         
          build a working flow to folw 
+         
          generate and search for data to use for fine-tuning 
 
 phase 1: extract data from resources 
+         
           write script for scapping web 
+          
           write script for extracting text from pdf
+          
           enriched the metadata to add more information 
+          
           build a pipeline for data extraction
+          
           and add it to cli.py to keep the modularty 
 
 phase 2: preprocessing the extraced data
+         
          preprocessing the data clean text, deduplication, 
+         
          split into chunks
+         
          build a pipeline for data preprocessing
-        add it to cli.py to keep the modularty 
+         
+         add it to cli.py to keep the modularty 
 
 phase 3: build dataset
+         
          normarilze data and tokenize it 
+         
          using together.ai to generate QA data from the collected data
+         
          the a JSON formatter to make it in this structure to use for training 
+                
                 "instruction": item["question"],
+                
                 "input": item["context"],
+                
                 "output": item["answer"]
 
                 
 
 phase 4: Training and Fine-tune LLMs Efficiently with QLoRA
+         
          training was done on google colab -training script is included in the repo
+         
          i used TinyLlama 1.1B-Chat-v1.0 small model with good accuary
+         
          tracking the training was done using wandb
+         
          training steps 
+         
          1- calling pretrained model and tokenizer using HF transformer
+         
          2- apply 4-bit quantization to reduce memory usage
+         
          3- used LoRA adaptor for efficient finetuning
+         
          4- Tokenize the data to be suitablle for the casualLM
+         
          5- train using HF api 
+         
          6- save the fine tuned model and its tokenizer -to be used in evaluation-
+         
          my training lose table 
          
          Step	Training Loss
@@ -112,30 +165,50 @@ phase 4: Training and Fine-tune LLMs Efficiently with QLoRA
           80	2.018400
           90	1.991200
           100	1.974200
+         
           ensure to add the training pipeline in our cli.py 
 
 phase 5: Evaluation 
+         
          using a gpt generated evaluation set
+         
          evaluate both base model and fine-tuned model on the generated data
+         
          Results:
+           
             Base Model: {'BLEU': 0.08502947077145905, 'ROUGE-L': np.float64(0.07529644268774703), 
+            
             'EM': 0.0, 'avg_latency': 1.1658345699310302}
+            
             Finetuned Model: {'BLEU': 0.01742018516969367, 'ROUGE-L': np.float64(0.07734975124871722),
+             
              'EM': 0.0, 'avg_latency': 11.054151344299317}
+        
         shows that the percision is higher in our fine-tuned model which means it a little 
+        
             overfitted on our data which in our case maybe suitable since its QA task
+        
         decided to move for deployment with the finetuned model 
 
 phase 6: Serve and create Endpoints
+        
          config our app by giving HF token, model_path
+         
          create an AUTH token to ensure authentication
+         
          using FastAPI for serving to create end points
+         
          write a pipeline for generating answers using the fine tuned model
+         
          test the API using postman to get answers
+         
          using logs for monitoring
+         
          add it to cli.py to maintain the modularty
 
 phaase 7: Automate the pipeline using Prefect
+         
           Automate the whole pipeline -with out the serving- 
+          
           sechedule to run the pipeline every week to train on new data 
 
