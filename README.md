@@ -74,6 +74,8 @@ phase 3: build dataset
                 "input": item["context"],
                 "output": item["answer"]
 
+                
+
 phase 4: Training and Fine-tune LLMs Efficiently with QLoRA
          training was done on google colab -training script is included in the repo
          i used TinyLlama 1.1B-Chat-v1.0 small model with good accuary
@@ -86,6 +88,7 @@ phase 4: Training and Fine-tune LLMs Efficiently with QLoRA
          5- train using HF api 
          6- save the fine tuned model and its tokenizer -to be used in evaluation-
          my training lose table 
+         
          Step	Training Loss
           10	2.411700
           20	2.352900
