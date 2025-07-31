@@ -3,26 +3,35 @@ Build an end-to-end pipeline to collect domain-specific data, fine-tune a small 
 
 **Fine-tune & serve small language model and deploy it for production use.
 Input
+
 ● Target domain: "electric vehicle charging stations"
+
 ● Use case: QA
+
 ● Data sources: PDFs, website scrapping
+
 ● Base small LLM for fine-tuning :TinyLlama/TinyLlama-1.1B-Chat-v1.0
+
 Output
 Working AI pipeline with automated data processing, fine-tuned small LLM, evaluation and
 benchmarking, and production deployment and serving.
 
 Requirements:
+
 ● Config
     ○ Target domain topic as prompt in NL.
     ○ Environment variables
+
 ● Data collection
     ○ Web scraping
     ○ PDF extraction with layout
     ○ Metadata extraction and source attribution
+
 ● Data processing
     ○ Cleaning, deduplication, and quality filtering
     ○ Data normalization and tokenization
     ○ Data storage
+
 ● Training dataset
     ○ LLM API integration for dataset augmentation
     ○ Question-answer pair generation
@@ -31,17 +40,20 @@ Requirements:
     ○ Integration with models ≤7B parameters
     ○ Memory-efficient training with techniques like LoRA or QLoRA
     ○ Experiment tracking
+
 ● Evals and Benchmarking
     ○ Domain-specific benchmark dataset creation 
     ○ Asked both base model and finetuned model to see what gives better answer 
     ○ Automated evaluation metrics (ROUGE, BLEU)
         i. Performance comparison with baseline model
         ii. Inference latency and throughput
+
 ● Deployment and Serving
     ○ Model registration and versioning
     ○ Lightweight inference and deployment
     ○ API endpoint with authentication
     ○ Endpoint monitoring
+
 ● Orchestration
     ○ Workflow automation using Prefect
     ○ Manual and scheduled triggers
