@@ -1,0 +1,28 @@
+import json
+
+samples = [
+    {
+        "instruction": "How long does it take to fully charge a Tesla Model 3 at a Level 2 charger?",
+        "expected_output": "It takes about 8 hours to fully charge a Tesla Model 3 at a Level 2 charging station."
+    },
+    {
+        "instruction": "What is the difference between Level 1 and Level 2 EV chargers?",
+        "expected_output": "Level 1 chargers use standard outlets and are slower, while Level 2 chargers are faster and require 240V power."
+    },
+    {
+        "instruction": "Can I install a Level 2 charger at home?",
+        "expected_output": "Yes, you can install a Level 2 charger at home with proper electrical setup."
+    },
+    {
+        "instruction": "Are public EV chargers free?",
+        "expected_output": "Some public EV chargers are free, but many require payment depending on the location."
+    },
+    {
+        "instruction": "How do fast chargers affect EV battery health?",
+        "expected_output": "Frequent use of fast chargers may degrade battery health slightly faster than slow charging."
+    }
+]
+
+with open("./data/evaluation/eval_dataset.jsonl", "w") as f:
+    for item in samples:
+        f.write(json.dumps(item) + "\n")

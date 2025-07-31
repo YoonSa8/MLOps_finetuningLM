@@ -1,0 +1,26 @@
+domain: "Electric Vehicle Charging Station"
+use_case: "Question Answering"
+base_model: "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+data_dir: "./data"
+save_dir: "./saved_models/mistral-sft"
+url_list: 
+  - "https://afdc.energy.gov/fuels/electricity_infrastructure.html"
+  - "https://www.energy.gov/eere/vehicles/articles/federal-incentives-electric-vehicles"
+  - "https://www.transportation.gov/rural/ev/toolkit"
+domain_keywords: 
+  - "ev"
+  - "charging"
+  - "stations"
+  - "infrastructure"
+  - "battery"
+  - "electrical"
+  - "energy"
+  - "vehicles"
+data_sources:
+  - type: "pdf"
+    path: "data/"
+  - type: "web"
+    path: "electric vehicle charging regulation site:gov"
+output_path: "artifacts/"
+
+

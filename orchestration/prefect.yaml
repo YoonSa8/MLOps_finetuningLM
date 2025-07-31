@@ -1,0 +1,12 @@
+prefect-version: 2.14.17
+
+deployments:
+  - name: llm_pipeline
+    version: null
+    tags: []
+    description: LLM Orchestration Pipeline
+    entrypoint: workflow.py:full_pipeline
+    work_pool:
+      name: default-pull-pool  
+      work_queue_name: null
+      job_variables: {}
